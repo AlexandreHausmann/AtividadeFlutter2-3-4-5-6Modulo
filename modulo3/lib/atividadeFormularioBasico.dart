@@ -46,76 +46,141 @@ class _FormExampleState extends State<FormExample> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            // Campo de texto do nome
-            TextFormField(
-              controller: _nameController,
-              keyboardType: TextInputType.text,
-              decoration: const InputDecoration(
-                labelText: 'Nome',
-              ),
-              validator: (value) {
-                // Lógica de validação do campo de texto do nome
-                if (value == null) {
-                  return 'Por favor, insira um nome.';
-                }
-                if (value.length < 3 || !RegExp(r'^[A-Z]').hasMatch(value)) {
-                  return 'O nome deve conter pelo menos 3 letras e começar com letra maiúscula.';
-                }
-                return null;
-              },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          // Campo de texto do nome
+          TextFormField(
+            controller: _nameController,
+            keyboardType: TextInputType.text,
+            decoration: const InputDecoration(
+              labelText: 'Nome',
             ),
-            // Campo de texto da idade
-            TextFormField(
-              controller: _ageController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Idade',
-              ),
-              validator: (value) {
-                // Lógica de validação do campo de texto da idade
-                if (value == null) {
-                  return 'Por favor, insira a idade.';
-                }
-                final idade = int.tryParse(_ageController.text) ?? 0;
-                if (idade < 18) {
-                  return 'A idade deve ser um número válido maior ou igual a 18.';
-                }
-                return null;
-              },
+            validator: (value) {
+              // Lógica de validação do campo de texto do nome
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira um nome.';
+              }
+              if (value.length < 3 || !RegExp(r'^[A-Z]').hasMatch(value)) {
+                return 'O nome deve conter pelo menos 3 letras e começar com letra maiúscula.';
+              }
+              return null;
+            },
+          ),
+          // Campo de texto da idade
+          TextFormField(
+            controller: _ageController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Idade',
             ),
-            // Checkbox Ativo/Inativo
-            Row(
+            validator: (value) {
+              // Lógica de validação do campo de texto da idade
+              if (value == null || value.isEmpty) {
+                return 'Por favor, insira a idade.';
+              }
+              final idade = int.tryParse(value) ?? 0;
+              if (idade < 18) {
+                return 'A idade deve ser um número válido maior ou igual a 18.';
+              }
+              return null;
+            },
+          ),
+          // Checkbox Ativo/Inativo
+          Row(
+            children: [
+              Checkbox(
+                value: _isActive,
+                onChanged: (value) {
+                  // Lógica para atualizar o estado do Checkbox Ativo/Inativo
+                  setState(() {
+                    _isActive = value!;
+                  });
+                },
+              ),
+              Text(_isActive ? 'Ativo' : 'Inativo'),
+            ],
+          ),
+          SizedBox(height: 20),
+          // Botão "Salvar" para enviar o formulário
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                // Implementação da lógica de envio do formulário aqui
+                _showSavedData();
+              }
+            },
+            child: Text('Salvar'),
+          ),
+          SizedBox(height: 20),
+          // Widget para mostrar os dados salvos
+          Container(
+            padding: EdgeInsets.all(10),
+            color: _isActive ? Colors.green : Colors.grey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Checkbox(
-                  value: _isActive,
-                  onChanged: (value) {
-                    // Lógica para atualizar o estado do Checkbox Ativo/Inativo
-                    setState(() {
-                      _isActive = value!;
-                    });
-                  },
+                Text(
+                  'Dados Salvos:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
                 ),
-                Text(_isActive ? 'Ativo' : 'Inativo'),
+                SizedBox(height: 10),
+                Text(
+                  'Nome: ${_nameController.text}',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'Idade: ${_ageController.text}',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'Status: ${_isActive ? 'Ativo' : 'Inativo'}',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 20),
-            // Botão "Salvar" para enviar o formulário
-            ElevatedButton(
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Método para exibir os dados salvos
+  void _showSavedData() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Dados Salvos'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Nome: ${_nameController.text}'),
+              Text('Idade: ${_ageController.text}'),
+              Text('Status: ${_isActive ? 'Ativo' : 'Inativo'}'),
+            ],
+          ),
+          actions: [
+            TextButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  // Implementação da lógica de envio do formulário aqui
-                }
+                Navigator.of(context).pop();
               },
-              child: Text('Salvar'),
+              child: Text('OK'),
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 
