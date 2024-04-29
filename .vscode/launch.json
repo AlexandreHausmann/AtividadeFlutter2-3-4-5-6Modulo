@@ -1,0 +1,88 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "modulo2",
+            "cwd": "modulo2",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "modulo2 (profile mode)",
+            "cwd": "modulo2",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "modulo2 (release mode)",
+            "cwd": "modulo2",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "modulo3",
+            "cwd": "modulo3",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "modulo3 (profile mode)",
+            "cwd": "modulo3",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "modulo3 (release mode)",
+            "cwd": "modulo3",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "modulo4",
+            "cwd": "modulo4",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "modulo4 (profile mode)",
+            "cwd": "modulo4",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "modulo4 (release mode)",
+            "cwd": "modulo4",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "modulo5",
+            "cwd": "modulo5",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "modulo5 (profile mode)",
+            "cwd": "modulo5",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "modulo5 (release mode)",
+            "cwd": "modulo5",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
